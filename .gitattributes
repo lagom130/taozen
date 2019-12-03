@@ -1,0 +1,6 @@
+*.js linguist-language=HTML
+*.css linguist-language=HTML
+*.html linguist-language=HTML
+
+*.kt linguist-language=Kotlin
+*.java linguist-language=Java
