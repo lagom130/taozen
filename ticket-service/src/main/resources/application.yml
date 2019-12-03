@@ -22,5 +22,5 @@ spring:
       host: kuro-mongo-master
       database: ticket-service
       port: 27017
-      username: admin
-      password: P@ssw0rd
+      username:
+      password:
