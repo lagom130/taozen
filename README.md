@@ -6,7 +6,10 @@ taoist(道)
 
 >
 > 模块列表
-> + nacos-server 注册中心与配置中心
-> + gateway-service 网关服务
+> + 基础模块
+>> - nacos-server 注册中心与配置中心
+>> - gateway-service 网关服务
+> + 业务模块
+>> - ticket-service 工单服务
 
     
