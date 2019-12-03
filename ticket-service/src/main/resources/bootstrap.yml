@@ -19,7 +19,7 @@ spring:
         file-extension: yml
   data:
     mongodb:
-      host: kuro-mongo-master
+      host:
       database: ticket-service
       port: 27017
       username:
