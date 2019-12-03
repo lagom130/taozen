@@ -3,6 +3,7 @@ package com.joker.kuro.taoist.entity;
 import com.joker.kuro.taoist.consts.DBDocumentConstants;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -52,9 +53,13 @@ public class TicketInfoEntity {
     private String status;
 
     /**
-     * 邮箱
+     * 客户邮箱
      */
-    private String email;
+    private String customerEmail;
+    /**
+     * 客户姓名
+     */
+    private String customerName;
 
     /**
      * 创建者ID
@@ -87,5 +92,11 @@ public class TicketInfoEntity {
      * 附件
      */
     private List<Annex> annexes;
+
+    /**
+     * 版本（乐观锁）
+     */
+    @Version
+    private Long version;
 
 }
