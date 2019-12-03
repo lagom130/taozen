@@ -5,8 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.joker.kuro</groupId>
-    <artifactId>taoist</artifactId>
+    <artifactId>taozen</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
+    <modules>
+        <module>gateway-service</module>
+        <module>ticket-service</module>
+    </modules>
 </project>
