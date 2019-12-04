@@ -1,6 +1,5 @@
-package com.joker.kuro.taoist.entity;
+package com.joker.kuro.taozen.entity;
 
-import com.joker.kuro.taoist.consts.DBDocumentConstants;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
@@ -8,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-import static com.joker.kuro.taoist.consts.DBDocumentConstants.TICKET_INFO;
+import static com.joker.kuro.taozen.consts.DBDocumentConstants.TICKET_INFO;
 
 /**
  * 工单信息实体类

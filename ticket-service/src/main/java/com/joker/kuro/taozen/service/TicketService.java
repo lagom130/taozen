@@ -1,7 +1,6 @@
-package com.joker.kuro.taoist.service;
+package com.joker.kuro.taozen.service;
 
-import com.joker.kuro.taoist.repository.TicketRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.joker.kuro.taozen.repository.TicketRepository;
 import org.springframework.stereotype.Service;
 
 /**

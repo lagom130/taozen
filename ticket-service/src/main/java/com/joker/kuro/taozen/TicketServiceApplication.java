@@ -1,4 +1,4 @@
-package com.joker.kuro.taoist;
+package com.joker.kuro.taozen;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

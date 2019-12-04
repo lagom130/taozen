@@ -1,4 +1,4 @@
-package com.joker.kuro.taoist.consts;
+package com.joker.kuro.taozen.consts;
 
 /**
  * 数据库表名常量
