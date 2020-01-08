@@ -1,6 +1,6 @@
-package com.joker.kuro.taozen.repository;
+package com.kuro.taozen.repository;
 
-import com.joker.kuro.taozen.entity.TicketInfoEntity;
+import com.kuro.taozen.entity.TicketInfoEntity;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 

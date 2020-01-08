@@ -1,4 +1,4 @@
-package com.joker.kuro.taozen.entity;
+package com.kuro.taozen.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-import static com.joker.kuro.taozen.consts.DBDocumentConstants.TICKET_INFO;
+import static com.kuro.taozen.consts.DBDocumentConstants.TICKET_INFO;
 
 /**
  * 工单信息实体类

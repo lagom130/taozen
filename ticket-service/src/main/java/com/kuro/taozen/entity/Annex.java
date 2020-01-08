@@ -1,4 +1,4 @@
-package com.joker.kuro.taozen.entity;
+package com.kuro.taozen.entity;
 
 import lombok.Data;
 

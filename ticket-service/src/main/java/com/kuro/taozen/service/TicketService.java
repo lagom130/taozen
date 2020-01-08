@@ -1,6 +1,6 @@
-package com.joker.kuro.taozen.service;
+package com.kuro.taozen.service;
 
-import com.joker.kuro.taozen.repository.TicketRepository;
+import com.kuro.taozen.repository.TicketRepository;
 import org.springframework.stereotype.Service;
 
 /**

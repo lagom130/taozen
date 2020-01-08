@@ -1,4 +1,4 @@
-package com.joker.kuro.taozen.controller;
+package com.kuro.taozen.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
