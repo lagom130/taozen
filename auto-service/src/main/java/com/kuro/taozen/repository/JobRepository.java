@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * 作业Repository
+ * 作业数据访问层
  *
  * @author kuro
  * @create 2020-01-09
