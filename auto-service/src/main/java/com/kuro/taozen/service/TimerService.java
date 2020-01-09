@@ -1,4 +1,4 @@
-package com.kuro.taozen.autoservice.service;
+package com.kuro.taozen.service;
 
 /**
  * 定时任务Service

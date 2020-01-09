@@ -11,5 +11,6 @@
     <modules>
         <module>gateway-service</module>
         <module>ticket-service</module>
+        <module>auto-service</module>
     </modules>
 </project>

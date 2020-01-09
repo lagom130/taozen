@@ -1,4 +1,4 @@
-package com.kuro.taozen.autoservice.repository;
+package com.kuro.taozen.repository;
 
 /**
  * 任务Repository

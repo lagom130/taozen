@@ -1,4 +1,4 @@
-package com.kuro.taozen.autoservice.entity;
+package com.kuro.taozen.entity;
 
 /**
  * 作业实体

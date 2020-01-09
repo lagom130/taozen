@@ -1,4 +1,4 @@
-package com.kuro.taozen.autoservice.service;
+package com.kuro.taozen.service;
 
 /**
  * 作业历史Service
