@@ -1,15 +1,14 @@
 package com.kuro.taozen.handler;
 
-import com.kuro.taozen.consts.DBFieldConstants;
 import com.kuro.taozen.dto.JobDto;
 import com.kuro.taozen.entity.JobEntity;
 import com.kuro.taozen.repository.JobRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.Resource;
@@ -25,41 +24,67 @@ import javax.annotation.Resource;
 public class JobHandler {
     @Resource
     private JobRepository jobRepository;
-    @Resource
-    private ReactiveMongoTemplate mongoTemplate;
 
     /**
      * 新增一个作业
-     * @param inputDto
+     * @param request
      * @return
      */
-    public Mono<JobEntity> addOne(JobDto inputDto) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where(DBFieldConstants.NAME).is(inputDto.getName()));
-        mongoTemplate.count(query, JobEntity.class);
+    public Mono<ServerResponse> addOne(ServerRequest request) {
         String operatorUser = "";
-        JobEntity jobEntity = new JobEntity();
-        BeanUtils.copyProperties(inputDto, jobEntity);
-        jobEntity.setUpdateTime(System.currentTimeMillis());
-        jobEntity.setUpdateUser(operatorUser);
-        jobEntity.setUpdateTime(jobEntity.getCreatedTime());
-        jobEntity.setUpdateUser(jobEntity.getUpdateUser());
-        return jobRepository.insert(jobEntity);
+        Mono<JobEntity> job = request.bodyToMono(JobDto.class)
+                // TODO:名称重复校验
+                //Dto转换为实体
+                .map(inputDto -> {
+                    JobEntity jobEntity = new JobEntity();
+                    BeanUtils.copyProperties(inputDto, jobEntity);
+                    jobEntity.setUpdateTime(System.currentTimeMillis());
+                    jobEntity.setUpdateUser(operatorUser);
+                    jobEntity.setUpdateTime(jobEntity.getCreatedTime());
+                    jobEntity.setUpdateUser(jobEntity.getUpdateUser());
+                    return jobEntity;
+                });
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                .body(jobRepository.insert(job), JobEntity.class);
     }
 
     /**
-     * 编辑一个作业
-     * @param inputDto
+     * TODO:编辑一个作业
+     * @param request
      * @return
      */
-    public Mono<JobEntity> updateOne(String id, JobDto inputDto) {
+    public Mono<ServerResponse> updateOne(ServerRequest request) {
         String operatorUser = "";
-        JobEntity jobEntity = jobRepository.findById(id).blockOptional().orElseThrow();
-        BeanUtils.copyProperties(inputDto, jobEntity);
-        jobEntity.setUpdateTime(System.currentTimeMillis());
-        jobEntity.setUpdateUser(operatorUser);
-        jobEntity.setUpdateTime(jobEntity.getCreatedTime());
-        jobEntity.setUpdateUser(jobEntity.getUpdateUser());
-        return jobRepository.save(jobEntity);
+        return ServerResponse.ok().build();
+    }
+
+    /**
+     * TODO:查询一个作业
+     * @param request
+     * @return
+     */
+    public Mono<ServerResponse> findOne(ServerRequest request) {
+        String operatorUser = "";
+        return ServerResponse.ok().build();
+    }
+
+    /**
+     * TODO:删除一个作业
+     * @param request
+     * @return
+     */
+    public Mono<ServerResponse> deleteOne(ServerRequest request) {
+        String operatorUser = "";
+        return ServerResponse.ok().build();
+    }
+
+    /**
+     * TODO:查询作业列表
+     * @param request
+     * @return
+     */
+    public Mono<ServerResponse> list(ServerRequest request) {
+        String operatorUser = "";
+        return ServerResponse.ok().build();
     }
 }
