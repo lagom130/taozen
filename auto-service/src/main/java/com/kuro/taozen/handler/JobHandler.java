@@ -69,13 +69,16 @@ public class JobHandler {
     }
 
     /**
-     * TODO:删除一个作业
+     * 删除一个作业
      * @param request
      * @return
      */
     public Mono<ServerResponse> deleteOne(ServerRequest request) {
         String operatorUser = "";
-        return ServerResponse.ok().build();
+        return jobRepository.findById(request.pathVariable("id"))
+                .flatMap(jobEntity -> jobRepository.delete(jobEntity))
+                .then(ServerResponse.ok().build())
+                .switchIfEmpty(ServerResponse.notFound().build());
     }
 
     /**
