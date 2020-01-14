@@ -19,13 +19,18 @@ import javax.annotation.Resource;
 @Slf4j
 @Component
 public class IdentifierHandler {
+
     @Resource
     private ReactiveRedisTemplate reactiveRedisTemplate;
 
-    public Mono<ServerResponse> getOne(ServerRequest request) {
-        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(
-                reactiveRedisTemplate.opsForValue()
-                        .increment(request.queryParam("type").orElse("undefined"), 1L)
-                        .defaultIfEmpty(0L), Long.class);
+    /**
+     * 根据类型获取编号
+     * @param request 请求体
+     * @return
+     */
+    public Mono<ServerResponse> getByType(ServerRequest request) {
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                .body(reactiveRedisTemplate.opsForValue().increment(request.queryParam("type")
+                        .orElse("undefined"), 1L).defaultIfEmpty(0L), Long.class);
     }
 }

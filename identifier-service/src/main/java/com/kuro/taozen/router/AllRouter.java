@@ -19,13 +19,17 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
  **/
 @Configuration
 public class AllRouter {
-    // 编号路由
+    /**
+     * 编号路由
+     * @param handler 编号处理器
+     * @return
+     */
     @Bean
     RouterFunction<ServerResponse> identifierRoute(IdentifierHandler handler) {
         return nest(
-                path("/identifier"),
+                path(""),
                 // 根据类型获取一个编号
-                route(GET("/{type}"), handler::getOne)
+                route(GET("/{type}"), handler::getByType)
         );
     }
 }
