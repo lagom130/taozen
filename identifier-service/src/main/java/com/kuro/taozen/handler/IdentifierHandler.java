@@ -1,9 +1,6 @@
 package com.kuro.taozen.handler;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
-import org.springframework.data.redis.core.ReactiveRedisTemplate;
-import org.springframework.data.redis.core.ReactiveStringRedisTemplate;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 import org.springframework.http.MediaType;
@@ -13,7 +10,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.Resource;
-import java.util.Optional;
+import java.util.Objects;
 
 /**
  * 发号器处理器
@@ -31,7 +28,7 @@ public class IdentifierHandler {
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(
                 Mono.justOrEmpty(new RedisAtomicLong(
                         request.queryParam("type").orElse("undefined"),
-                        redisTemplate.getConnectionFactory()
+                        Objects.requireNonNull(redisTemplate.getConnectionFactory())
                 ).getAndIncrement()).defaultIfEmpty(0L), Long.class);
     }
 }
