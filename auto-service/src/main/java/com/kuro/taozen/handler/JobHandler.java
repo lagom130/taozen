@@ -5,6 +5,7 @@ import com.kuro.taozen.entity.JobEntity;
 import com.kuro.taozen.repository.JobRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -24,6 +25,8 @@ import javax.annotation.Resource;
 public class JobHandler {
     @Resource
     private JobRepository jobRepository;
+    @Resource
+    private ReactiveMongoTemplate mongoTemplate;
 
     /**
      * 新增一个作业
@@ -33,7 +36,7 @@ public class JobHandler {
     public Mono<ServerResponse> addOne(ServerRequest request) {
         String operatorUser = "";
         Mono<JobEntity> job = request.bodyToMono(JobDto.class)
-                // TODO:名称重复校验
+                // TODO: 校验
                 //Dto转换为实体
                 .map(inputDto -> {
                     JobEntity jobEntity = new JobEntity();
@@ -59,13 +62,14 @@ public class JobHandler {
     }
 
     /**
-     * TODO:查询一个作业
+     * 查询一个作业
      * @param request
      * @return
      */
     public Mono<ServerResponse> findOne(ServerRequest request) {
         String operatorUser = "";
-        return ServerResponse.ok().build();
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                .body(jobRepository.findById(request.pathVariable("id")), JobEntity.class);
     }
 
     /**
