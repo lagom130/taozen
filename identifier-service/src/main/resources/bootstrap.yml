@@ -1,0 +1,27 @@
+server:
+  port: 14000
+spring:
+  profiles:
+    active: dev
+  application:
+    name: identifier-service
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: kuro-nacos-server:8848
+      config:
+        server-addr: kuro-nacos-server:8848
+        file-extension: yml
+  data:
+    redis:
+      host:
+      port: 6379
+      password:
+      database: 0
+      lettuce:
+        shutdown-timeout: 5000
