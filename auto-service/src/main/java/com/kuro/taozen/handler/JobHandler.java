@@ -5,7 +5,6 @@ import com.kuro.taozen.entity.JobEntity;
 import com.kuro.taozen.repository.JobRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -13,6 +12,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * 作业处理器
@@ -25,8 +25,6 @@ import javax.annotation.Resource;
 public class JobHandler {
     @Resource
     private JobRepository jobRepository;
-    @Resource
-    private ReactiveMongoTemplate mongoTemplate;
 
     /**
      * 新增一个作业
@@ -40,12 +38,7 @@ public class JobHandler {
                 //Dto转换为实体
                 .map(inputDto -> {
                     JobEntity jobEntity = new JobEntity();
-                    BeanUtils.copyProperties(inputDto, jobEntity);
-                    jobEntity.setUpdateTime(System.currentTimeMillis());
-                    jobEntity.setUpdateUser(operatorUser);
-                    jobEntity.setUpdateTime(jobEntity.getCreatedTime());
-                    jobEntity.setUpdateUser(jobEntity.getUpdateUser());
-                    return jobEntity;
+                    return this.inputTrans(inputDto, jobEntity, operatorUser);
                 });
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
                 .body(jobRepository.insert(job), JobEntity.class);
@@ -93,5 +86,16 @@ public class JobHandler {
     public Mono<ServerResponse> list(ServerRequest request) {
         String operatorUser = "";
         return ServerResponse.ok().build();
+    }
+
+    private JobEntity inputTrans(@Valid JobDto inputDto, JobEntity entity, String operatorUser) {
+        BeanUtils.copyProperties(inputDto, entity);
+        entity.setUpdateTime(System.currentTimeMillis());
+        entity.setUpdateUser(operatorUser);
+        if(entity.getCreatedTime() == null) {
+            entity.setCreatedTime(entity.getCreatedTime());
+            entity.setCreatedUser(entity.getUpdateUser());
+        }
+        return entity;
     }
 }
