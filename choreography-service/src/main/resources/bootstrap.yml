@@ -1,0 +1,33 @@
+server:
+  port: 15000
+spring:
+  profiles:
+    active: dev
+  application:
+    name: choreography-service
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  cloud:
+    nacos:
+      discovery:
+        server-addr: kuro-nacos-server:8848
+      config:
+        server-addr: kuro-nacos-server:8848
+        file-extension: yml
+  data:
+    mongodb:
+      host:
+      database: auto-service
+      port: 27017
+      username:
+      password:
+    redis:
+      host:
+      port: 6379
+      password:
+      database: 1
+      lettuce:
+        shutdown-timeout: 5000
