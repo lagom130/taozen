@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.kuro.taozen</groupId>
-    <artifactId>choreography-service</artifactId>
+    <artifactId>choreo-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>choreography-service</name>
+    <name>choreo-service</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

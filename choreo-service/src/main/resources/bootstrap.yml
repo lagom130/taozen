@@ -4,7 +4,7 @@ spring:
   profiles:
     active: dev
   application:
-    name: choreography-service
+    name: choreo-service
   http:
     encoding:
       charset: UTF-8
@@ -20,7 +20,7 @@ spring:
   data:
     mongodb:
       host:
-      database: auto-service
+      database: choreo-service
       port: 27017
       username:
       password:

@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ChoreographyServiceApplication {
+public class ChoreoServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ChoreographyServiceApplication.class, args);
+        SpringApplication.run(ChoreoServiceApplication.class, args);
     }
 
 }
