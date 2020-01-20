@@ -45,5 +45,13 @@ public class DBFieldConstants {
 	public final static String HEADERS = "headers";
 	/** 体参数*/
 	public final static String BODIES = "bodies";
+	/** 节点信息*/
+	public final static String NODES = "nodes";
+	/** 父节点列表*/
+	public final static String PARENT_NODES = "parent_nodes";
+	/** 子节点列表*/
+	public final static String CHILD_NODES = "child_nodes";
+	/** 键*/
+	public final static String KEY = "key";
 
 }
