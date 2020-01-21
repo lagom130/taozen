@@ -2,11 +2,15 @@ package com.kuro.taozen.manage.entity;
 
 import com.kuro.taozen.entity.meta.RequestConf;
 import com.kuro.taozen.entity.meta.ResponseConf;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
+import static com.kuro.taozen.consts.DBCollectionConstants.CHOREO_INFO;
+import static com.kuro.taozen.consts.DBCollectionConstants.META_API;
 import static com.kuro.taozen.consts.DBFieldConstants.*;
 import static com.kuro.taozen.consts.DBFieldConstants.CREATED_USER;
 
@@ -16,6 +20,8 @@ import static com.kuro.taozen.consts.DBFieldConstants.CREATED_USER;
  * @author kuro
  * @create 2020-01-20
  **/
+@Data
+@Document(collation = CHOREO_INFO)
 public class ChoreoEntity {
     /**
      * ID
