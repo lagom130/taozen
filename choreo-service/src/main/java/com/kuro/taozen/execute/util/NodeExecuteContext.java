@@ -22,10 +22,16 @@ public class NodeExecuteContext {
     private WebClient.Builder webClientBuilder;
 
     public void execute(NodeConf nodeConf, Map<String, Map<String, String>> args) {
-        String url = "";
+        String url = nodeConf.getUrl();
+        String paramStr = nodeConf.getRequestConf().getParams().stream()
+                .map(param -> new KeyValue(param.getName(), param.isFixed() ?
+                        param.getDefaultValue(): args.get("path").get(param.getDefaultValue())))
+                .filter(keyValue -> StringUtils.isNotBlank(keyValue.getValue()))
+                .map(keyValue -> keyValue.getKey()+"="+keyValue.getValue())
+                .collect(Collectors.joining("&"));
         WebClient.RequestBodySpec requestBodySpec = webClientBuilder.build()
                 .method(HttpMethod.PUT)
-                .uri(nodeConf.getUrl(),
+                .uri((paramStr != null && paramStr.length()>0) ? url+"?"+paramStr : url,
                     nodeConf.getRequestConf().getPaths().stream()
                             .map(path -> new KeyValue(path.getName(),
                                     path.isFixed() ?
