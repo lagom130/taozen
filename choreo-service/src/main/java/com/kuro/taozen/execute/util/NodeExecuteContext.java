@@ -22,6 +22,24 @@ public class NodeExecuteContext {
     private WebClient.Builder webClientBuilder;
 
     public void execute(NodeConf nodeConf, Map<String, Map<String, String>> args) {
+        WebClient.RequestBodySpec requestBodySpec = webClientBuilder.build()
+                .method(HttpMethod.PUT)
+                .uri(this.urlConvert(nodeConf, args),
+                    nodeConf.getRequestConf().getPaths().stream()
+                            .map(path -> new KeyValue(path.getName(),
+                                    path.isFixed() ?
+                                            path.getDefaultValue() : args.get("path").get(path.getDefaultValue())))
+                            .collect(Collectors.toMap(KeyValue::getKey, KeyValue::getValue)));
+        this.headerConvert(requestBodySpec, nodeConf.getRequestConf().getHeaders(), args.get("header"));
+    }
+
+    /**
+     * 请求链接信息组装
+     * @param nodeConf
+     * @param args
+     * @return
+     */
+    private String urlConvert(NodeConf nodeConf, Map<String, Map<String, String>> args) {
         String url = nodeConf.getUrl();
         String paramStr = nodeConf.getRequestConf().getParams().stream()
                 .map(param -> new KeyValue(param.getName(), param.isFixed() ?
@@ -29,18 +47,16 @@ public class NodeExecuteContext {
                 .filter(keyValue -> StringUtils.isNotBlank(keyValue.getValue()))
                 .map(keyValue -> keyValue.getKey()+"="+keyValue.getValue())
                 .collect(Collectors.joining("&"));
-        WebClient.RequestBodySpec requestBodySpec = webClientBuilder.build()
-                .method(HttpMethod.PUT)
-                .uri((paramStr != null && paramStr.length()>0) ? url+"?"+paramStr : url,
-                    nodeConf.getRequestConf().getPaths().stream()
-                            .map(path -> new KeyValue(path.getName(),
-                                    path.isFixed() ?
-                                            path.getDefaultValue() : args.get("path").get(path.getDefaultValue())))
-                            .collect(Collectors.toMap(KeyValue::getKey, KeyValue::getValue)));
-        this.addHeaders(requestBodySpec, nodeConf.getRequestConf().getHeaders(), args.get("header"));
+        return paramStr != null && paramStr.length()>0 ? url+"?"+paramStr : url;
     }
 
-    private void addHeaders(WebClient.RequestBodySpec requestBodySpec, List<ArgsConf> headers,
+    /**
+     * 请求头信息组装
+     * @param requestBodySpec
+     * @param headers
+     * @param args
+     */
+    private void headerConvert(WebClient.RequestBodySpec requestBodySpec, List<ArgsConf> headers,
                            Map<String, String> args) {
         headers.stream()
                 .map(header -> new KeyValue(header.getName(),
